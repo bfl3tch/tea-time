@@ -311,4 +311,4 @@ Example Response:
 [version-badge]: https://img.shields.io/badge/API_version-V1-or.svg?&style=flat&logoColor=white
 
 ## Schema
-<img src="https://user-images.githubusercontent.com/74567704/141040919-5d6967b7-6655-4470-93cd-eeff32e7938b.png">
+<img src="https://user-images.githubusercontent.com/74567704/141505857-6556e0f2-7528-4c87-8857-3ad803da9fd5.png">
