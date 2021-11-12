@@ -1,0 +1,592 @@
+{
+	"info": {
+		"_postman_id": "32224231-a264-4fca-ad4f-7b76a4c49f92",
+		"name": "Tea Time",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create new customer subscription",
+			"item": [
+				{
+					"name": "Happy Path",
+					"item": [
+						{
+							"name": "Create a new customer subscription",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions?tea_id=1&subscription_id=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"1",
+										"customer_subscriptions"
+									],
+									"query": [
+										{
+											"key": "tea_id",
+											"value": "1"
+										},
+										{
+											"key": "subscription_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create a new customer subscription",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions?tea_id=1&subscription_id=1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												"1",
+												"customer_subscriptions"
+											],
+											"query": [
+												{
+													"key": "tea_id",
+													"value": "1"
+												},
+												{
+													"key": "subscription_id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"fe5302d4cd24b42aa4b99017f9cdd758\""
+										},
+										{
+											"key": "Cache-Control",
+											"value": "max-age=0, private, must-revalidate"
+										},
+										{
+											"key": "X-Request-Id",
+											"value": "203b2dbd-808b-49e5-8b71-919aa581c700"
+										},
+										{
+											"key": "X-Runtime",
+											"value": "0.057713"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": \"11\",\n        \"type\": \"customer_subscriptions\",\n        \"attributes\": {\n            \"tea_id\": 1,\n            \"customer_id\": 1,\n            \"subscription_id\": 1,\n            \"active\": true\n        }\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Sad Path",
+					"item": [
+						{
+							"name": "Bad subscription",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions?tea_id=1&subscription_id=1500",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"1",
+										"customer_subscriptions"
+									],
+									"query": [
+										{
+											"key": "tea_id",
+											"value": "1"
+										},
+										{
+											"key": "subscription_id",
+											"value": "1500"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Bad subscription",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions?tea_id=1&subscription_id=1500",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												"1",
+												"customer_subscriptions"
+											],
+											"query": [
+												{
+													"key": "tea_id",
+													"value": "1"
+												},
+												{
+													"key": "subscription_id",
+													"value": "1500"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache"
+										},
+										{
+											"key": "X-Request-Id",
+											"value": "7a7ac601-213b-499e-a4d9-e9893275ab1b"
+										},
+										{
+											"key": "X-Runtime",
+											"value": "0.004150"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"errors\": [\n        \"Couldn't find Subscription with 'id'=1500\"\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Bad tea",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions?tea_id=1500&subscription_id=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"1",
+										"customer_subscriptions"
+									],
+									"query": [
+										{
+											"key": "tea_id",
+											"value": "1500"
+										},
+										{
+											"key": "subscription_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Bad tea",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions?tea_id=1500&subscription_id=1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												"1",
+												"customer_subscriptions"
+											],
+											"query": [
+												{
+													"key": "tea_id",
+													"value": "1500"
+												},
+												{
+													"key": "subscription_id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache"
+										},
+										{
+											"key": "X-Request-Id",
+											"value": "83da515a-3773-4649-8b8c-d5c33f2e0894"
+										},
+										{
+											"key": "X-Runtime",
+											"value": "0.003515"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"errors\": [\n        \"Couldn't find Tea with 'id'=1500\"\n    ]\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Get all subscriptions for a customer",
+			"item": [
+				{
+					"name": "Happy Path",
+					"item": [
+						{
+							"name": "All subscriptions for a customer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"1",
+										"customer_subscriptions"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "All subscriptions for a customer",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												"1",
+												"customer_subscriptions"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"90d1c70af2576f7005ac95d02099b0f1\""
+										},
+										{
+											"key": "Cache-Control",
+											"value": "max-age=0, private, must-revalidate"
+										},
+										{
+											"key": "X-Request-Id",
+											"value": "bf78f4ef-065f-46ff-9e90-d7a2d552e7fe"
+										},
+										{
+											"key": "X-Runtime",
+											"value": "0.026916"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": [\n        {\n            \"id\": \"1\",\n            \"type\": \"customer_subscriptions\",\n            \"attributes\": {\n                \"tea_id\": 1,\n                \"customer_id\": 1,\n                \"subscription_id\": 1,\n                \"active\": true\n            }\n        },\n        {\n            \"id\": \"2\",\n            \"type\": \"customer_subscriptions\",\n            \"attributes\": {\n                \"tea_id\": 2,\n                \"customer_id\": 1,\n                \"subscription_id\": 1,\n                \"active\": true\n            }\n        },\n        {\n            \"id\": \"3\",\n            \"type\": \"customer_subscriptions\",\n            \"attributes\": {\n                \"tea_id\": 3,\n                \"customer_id\": 1,\n                \"subscription_id\": 2,\n                \"active\": true\n            }\n        },\n        {\n            \"id\": \"4\",\n            \"type\": \"customer_subscriptions\",\n            \"attributes\": {\n                \"tea_id\": 4,\n                \"customer_id\": 1,\n                \"subscription_id\": 2,\n                \"active\": true\n            }\n        },\n        {\n            \"id\": \"5\",\n            \"type\": \"customer_subscriptions\",\n            \"attributes\": {\n                \"tea_id\": 5,\n                \"customer_id\": 1,\n                \"subscription_id\": 2,\n                \"active\": true\n            }\n        }\n    ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Sad Path",
+					"item": [
+						{
+							"name": "Bad customer ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/customers/10000/customer_subscriptions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"10000",
+										"customer_subscriptions"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Bad customer ID",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:3000/api/v1/customers/10000/customer_subscriptions",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												"10000",
+												"customer_subscriptions"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache"
+										},
+										{
+											"key": "X-Request-Id",
+											"value": "b2d3453a-59c3-40af-80f9-4c464cfe61ff"
+										},
+										{
+											"key": "X-Runtime",
+											"value": "0.002962"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"errors\": [\n        \"Couldn't find Customer with 'id'=10000\"\n    ]\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cancel a customer's subscription",
+			"item": [
+				{
+					"name": "Update active status to false",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions/1?active=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"1",
+								"customer_subscriptions",
+								"1"
+							],
+							"query": [
+								{
+									"key": "active",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update active status to false",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions/1?active=false",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"1",
+										"customer_subscriptions",
+										"1"
+									],
+									"query": [
+										{
+											"key": "active",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7d96e3dd84369a75a398bd668fe06808\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "9f13540c-be5f-4707-8384-7a16702001b0"
+								},
+								{
+									"key": "X-Runtime",
+									"value": "1.764797"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": \"1\",\n        \"type\": \"customer_subscriptions\",\n        \"attributes\": {\n            \"tea_id\": 1,\n            \"customer_id\": 1,\n            \"subscription_id\": 1,\n            \"active\": false\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
