@@ -29,13 +29,79 @@ RSpec.describe 'Customer Subscriptions API' do
         expect(results[:data].count).to eq(2)
 
         @customer_subscription_1.active = false
-        
+
         get "/api/v1/customers/#{@customer.id}/customer_subscriptions"
         results = JSON.parse(response.body, symbolize_names: true)
 
         expect(results[:data].count).to eq(2)
       end
+    end
 
+    context 'when there are no subscriptions' do
+      before(:each) do
+        @customer = create(:customer)
+      end
+      it 'returns an empty result' do
+        get "/api/v1/customers/#{@customer.id}/customer_subscriptions"
+        results = JSON.parse(response.body, symbolize_names: true)
+
+        expect(results[:data].count).to eq(0)
+      end
+    end
+  end
+
+  describe 'create action' do
+    context 'successful creation' do
+      before(:each) do
+        @customer = create(:customer)
+        @tea_1 = create(:tea)
+        @subscription = create(:subscription)
+      end
+
+      it 'creates a customer subscription and returns the information in json' do
+        post "/api/v1/customers/#{@customer.id}/customer_subscriptions", params: { customer_id: @customer.id, tea_id: @tea_1.id, subscription_id: @subscription.id }
+        results = JSON.parse(response.body, symbolize_names: true)
+
+        expect(results[:data].keys).to eq([:id, :type, :attributes])
+        expect(results[:data][:attributes][:tea_id]).to eq(@tea_1.id)
+        expect(results[:data][:attributes][:customer_id]).to eq(@customer.id)
+        expect(results[:data][:attributes][:subscription_id]).to eq(@subscription.id)
+      end
+    end
+
+    context 'unsuccessful creation' do
+      before(:each) do
+        @customer = create(:customer)
+        @tea_1 = create(:tea)
+        @subscription = create(:subscription)
+      end
+
+      it 'returns an error in json for unfound tea' do
+        post "/api/v1/customers/#{@customer.id}/customer_subscriptions", params: { customer_id: @customer.id, tea_id: (@tea_1.id - 1), subscription_id: @subscription.id }
+        results = JSON.parse(response.body, symbolize_names: true)
+
+        expect(results[:errors]).to eq(["Couldn't find Tea with 'id'=#{(@tea_1.id - 1)}"])
+      end
+
+      it 'returns an error in json for unfound tea' do
+        post "/api/v1/customers/#{@customer.id - 1}/customer_subscriptions", params: { customer_id: @customer.id, tea_id: (@tea_1.id - 1), subscription_id: @subscription.id }
+        results = JSON.parse(response.body, symbolize_names: true)
+
+        expect(results[:errors]).to eq(["Couldn't find Customer with 'id'=#{@customer.id - 1}"])
+      end
+
+      it 'returns an error in json for unfound subscription' do
+        post "/api/v1/customers/#{@customer.id}/customer_subscriptions", params: { customer_id: @customer.id, tea_id: @tea_1.id, subscription_id: (@subscription.id - 1) }
+        results = JSON.parse(response.body, symbolize_names: true)
+
+        expect(results[:errors]).to eq(["Couldn't find Subscription with 'id'=#{(@subscription.id - 1)}"])
+      end
+
+      it 'returns an error in json for unfound subscription', :aggregate_failures do
+        post "/api/v1/customers/#{@customer.id}/customer_subscriptions", params: { }
+        results = JSON.parse(response.body, symbolize_names: true)
+        expect(results[:errors]).to eq(["Couldn't find Tea without an ID"])
+      end
     end
   end
 end
