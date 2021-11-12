@@ -1,3 +1,5 @@
+<div align="center">
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Issues][issues-shield]][issues-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -5,8 +7,10 @@
 ![Version][version-badge]
 
 # Tea Time
+<img src="https://c.tenor.com/YufCI62GowIAAAAM/parks-and-rec-april-ludgate.gif">
+</div><br/>
 
-Tea time is a Rails API with endpoints for users to subscribe a customer to a tea subscription, cancel a customer's tea subscription, and to see all of a customer's tea subscriptions (including active and cancelled).
+Tea time is a [JSON API 1.0 spec](https://jsonapi.org/)-compliant REST API built in Rails with endpoints for users to subscribe a customer to a tea subscription, cancel a customer's tea subscription, and to see all of a customer's tea subscriptions (including active and cancelled).
 
 
 ## Table of Contents
@@ -22,7 +26,7 @@ Tea time is a Rails API with endpoints for users to subscribe a customer to a te
 
 
 👤  **Brian Fletcher**
-  
+
   <a href="https://www.linkedin.com/in/bfl3tch"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
   <a href="https://github.com/bfl3tch"><img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=GitHub&logoColor=white"></a>
 
@@ -67,7 +71,7 @@ This project requires Ruby 2.7.2 and Rails 5.2.6.
     $ bundle exec rspec -fd
     ```
 
-* [Local Deployment](http://localhost:3000), for testing:
+* [Local Deployment](http://localhost:3000), for testing and navigating endpoints:
     ```bash
     $ rails s
     => Booting Puma
@@ -84,7 +88,7 @@ This project requires Ruby 2.7.2 and Rails 5.2.6.
 
 ## Endpoints
 
-The `base path` of each endpoint in <strong><u>development/testing</u></strong> is:
+The `base path` of each endpoint in <strong><u>development / testing</u></strong> is:
 
 ```
 http://localhost:3000/api/v1
@@ -92,6 +96,207 @@ http://localhost:3000/api/v1
 
 - For `GET` requests, you can send the endpoint requests through your internet browser, or utilize an API client (i.e. [Postman](https://www.postman.com/))
 - For `POST` and `PATCH` requests, you will need to use an API client
+- A fully functional Postman collection is included with this repository, to further assist with UAT and endpoint exploration
+
+#### Subscription Endpoints
+##### Create a new tea subscription for an existing customer
+###### Happy Path
+
+Example Request:
+```
+POST /api/v1/customers/{:id}/customer_subscriptions
+
+With the following JSON body:
+
+{
+    "tea_id": "5",
+    "subscription_id": "2",
+}
+```
+`OR`
+
+```
+
+with the following URL for query parameters:
+
+POST /api/v1/customers/{:id}/customer_subscriptions?tea_id=5&subscription_id=2
+
+```
+
+Example Response
+```
+201 (Created)
+
+{
+    "data": {
+        "id": "13",
+        "type": "customer_subscriptions",
+        "attributes": {
+            "tea_id": 5,
+            "customer_id": 1,
+            "subscription_id": 2,
+            "active": true
+        }
+    }
+}
+```
+
+###### Sad Path
+Example Request:
+```
+POST /api/v1/customers/{:id}/customer_subscriptions
+
+With the following JSON body:
+
+{
+    "tea_id": "2",
+    "subscription_id": "1500",
+}
+```
+
+Example Response
+```
+404 (Not Found)
+
+{
+    "errors": [
+        "Couldn't find Subscription with 'id'=1500"
+    ]
+}
+```
+
+##### Show all of a customer's tea subscriptions (active and inactive)
+###### Happy Path
+Example request:
+```
+GET /api/v1/customers/{:id}/customer_subscriptions
+
+```
+Example Response:
+
+```
+201 (Created)
+
+{
+    "data": [
+        {
+            "id": "1",
+            "type": "customer_subscriptions",
+            "attributes": {
+                "tea_id": 1,
+                "customer_id": 1,
+                "subscription_id": 1,
+                "active": false
+            }
+        },
+        {
+            "id": "2",
+            "type": "customer_subscriptions",
+            "attributes": {
+                "tea_id": 2,
+                "customer_id": 1,
+                "subscription_id": 1,
+                "active": true
+            }
+        },
+        {
+            "id": "3",
+            "type": "customer_subscriptions",
+            "attributes": {
+                "tea_id": 3,
+                "customer_id": 1,
+                "subscription_id": 2,
+                "active": true
+            }
+        },
+        {
+            "id": "4",
+            "type": "customer_subscriptions",
+            "attributes": {
+                "tea_id": 4,
+                "customer_id": 1,
+                "subscription_id": 2,
+                "active": false
+            }
+        },
+        {
+            "id": "11",
+            "type": "customer_subscriptions",
+            "attributes": {
+                "tea_id": 1,
+                "customer_id": 1,
+                "subscription_id": 1,
+                "active": true
+            }
+        },
+        {
+            "id": "12",
+            "type": "customer_subscriptions",
+            "attributes": {
+                "tea_id": 1,
+                "customer_id": 1,
+                "subscription_id": 1,
+                "active": false
+            }
+        },
+        {
+            "id": "13",
+            "type": "customer_subscriptions",
+            "attributes": {
+                "tea_id": 5,
+                "customer_id": 1,
+                "subscription_id": 2,
+                "active": true
+            }
+        }
+    ]
+}
+```
+###### Sad Path
+Example request:
+```
+GET /api/v1/customers/{:bad_id}/customer_subscriptions
+
+```
+Example Response:
+
+```
+{
+    "errors": [
+        "Couldn't find Customer with 'id'=10000"
+    ]
+}
+```
+
+##### Cancel a customer's tea subscription
+
+Example Request:
+```
+PATCH /api/v1/customers/{:id}/customer_subscriptions/1
+
+With the following JSON body:
+
+{
+    "active": "false",
+}
+```
+
+Example Response:
+
+```
+{
+    "data": {
+        "id": "1",
+        "type": "customer_subscriptions",
+        "attributes": {
+            "tea_id": 1,
+            "customer_id": 1,
+            "subscription_id": 1,
+            "active": false
+        }
+    }
+}
+```
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
