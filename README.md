@@ -96,7 +96,7 @@ http://localhost:3000/api/v1
 
 - For `GET` requests, you can send the endpoint requests through your internet browser, or utilize an API client (i.e. [Postman](https://www.postman.com/))
 - For `POST` and `PATCH` requests, you will need to use an API client
-- A fully functional Postman collection is included with this repository, to further assist with UAT and endpoint exploration
+- A fully functional [Postman collection](https://github.com/bfl3tch/tea-time/blob/main/spec/postman_collections/Tea_Time.postman_collection.json) is included with this repository, to further assist with UAT and endpoint exploration
 
 #### Subscription Endpoints
 ##### Create a new tea subscription for an existing customer
