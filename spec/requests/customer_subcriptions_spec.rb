@@ -127,5 +127,23 @@ RSpec.describe 'Customer Subscriptions API' do
         expect(results[:data][:attributes][:tea_id]).to eq(@tea_2.id)
       end
     end
+
+    context 'unsuccessful update' do
+      before(:each) do
+        @customer = create(:customer)
+        @tea_1 = create(:tea)
+        @tea_2 = create(:tea)
+        subscription = create(:subscription)
+        @customer_subscription_1 = create(:customer_subscription, id: 1, customer: @customer, tea: @tea_1, subscription: subscription)
+      end
+
+      it 'does not update with incorrect params provided' do
+        expect(@customer_subscription_1.tea_id).to eq(@tea_1.id)
+
+        patch "/api/v1/customers/#{@customer.id}/customer_subscriptions/#{@customer_subscription_1.id}", params: { tea_id: (@tea_2.id * 20) }
+        results = JSON.parse(response.body, symbolize_names: true)
+        expect(results[:errors]).to eq(["Tea must exist"])
+      end
+    end
   end
 end
