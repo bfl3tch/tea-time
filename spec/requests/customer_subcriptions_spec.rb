@@ -114,6 +114,7 @@ RSpec.describe 'Customer Subscriptions API' do
 
         patch "/api/v1/customers/#{@customer.id}/customer_subscriptions/#{@customer_subscription_1.id}", params: { active: false }
         results = JSON.parse(response.body, symbolize_names: true)
+
         expect(results[:data][:attributes][:active]).to eq(false)
       end
 
