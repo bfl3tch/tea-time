@@ -12,11 +12,10 @@ RSpec.describe 'Customers API' do
 
       it 'shows all the customers subscriptions' do
         get '/api/v1/customers'
-        require "pry"; binding.pry
-        @results = JSON.parse(response.body, symbolize_names: true)
+        results = JSON.parse(response.body, symbolize_names: true)
 
-        require "pry"; binding.pry
-        expect(results).to eq([])
+        expect(results[:data]).to be_an(Array)
+        expect(results[:data].first.keys).to eq([:id, :type, :attributes])
       end
 
 
