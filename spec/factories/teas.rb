@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :tea do
-    title { "MyString" }
-    description { "MyString" }
-    temperature { 1 }
-    brew_time { 1 }
+    title { Faker::Tea.variety  }
+    description { Faker::TvShows::Seinfeld.quote  }
+    temperature { rand(100..200) }
+    brew_time { rand(1..5) }
   end
 end
