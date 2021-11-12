@@ -83,7 +83,7 @@ RSpec.describe 'Customer Subscriptions API' do
         expect(results[:errors]).to eq(["Couldn't find Tea with 'id'=#{(@tea_1.id - 1)}"])
       end
 
-      it 'returns an error in json for unfound tea' do
+      it 'returns an error in json for unfound customer' do
         post "/api/v1/customers/#{@customer.id - 1}/customer_subscriptions", params: { customer_id: @customer.id, tea_id: (@tea_1.id - 1), subscription_id: @subscription.id }
         results = JSON.parse(response.body, symbolize_names: true)
 
@@ -96,11 +96,35 @@ RSpec.describe 'Customer Subscriptions API' do
 
         expect(results[:errors]).to eq(["Couldn't find Subscription with 'id'=#{(@subscription.id - 1)}"])
       end
+    end
+  end
 
-      it 'returns an error in json for unfound subscription', :aggregate_failures do
-        post "/api/v1/customers/#{@customer.id}/customer_subscriptions", params: { }
+  describe 'update action' do
+    context 'successful update' do
+      before(:each) do
+        @customer = create(:customer)
+        @tea_1 = create(:tea)
+        @tea_2 = create(:tea)
+        subscription = create(:subscription)
+        @customer_subscription_1 = create(:customer_subscription, id: 1, customer: @customer, tea: @tea_1, subscription: subscription)
+      end
+
+      it 'changes the active status from true to false, cancelling the customer subscription' do
+        expect(@customer_subscription_1.active).to eq(true)
+
+        patch "/api/v1/customers/#{@customer.id}/customer_subscriptions/#{@customer_subscription_1.id}", params: { active: false }
         results = JSON.parse(response.body, symbolize_names: true)
-        expect(results[:errors]).to eq(["Couldn't find Tea without an ID"])
+
+        expect(results[:data][:attributes][:active]).to eq(false)
+      end
+
+      it 'updates an attribute about the subscription' do
+        expect(@customer_subscription_1.active).to eq(true)
+
+        patch "/api/v1/customers/#{@customer.id}/customer_subscriptions/#{@customer_subscription_1.id}", params: { tea_id: @tea_2.id }
+        results = JSON.parse(response.body, symbolize_names: true)
+
+        expect(results[:data][:attributes][:tea_id]).to eq(@tea_2.id)
       end
     end
   end

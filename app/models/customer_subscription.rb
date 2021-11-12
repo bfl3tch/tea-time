@@ -7,5 +7,5 @@ class CustomerSubscription < ApplicationRecord
   validates_presence_of :tea_id
   validates_presence_of :subscription_id
 
-  validates :active, presence: true, inclusion: { in: [true, false] }
+  validates_inclusion_of :active, in: [true, false]
 end
