@@ -18,8 +18,9 @@ class Api::V1::Customers::CustomerSubscriptionsController < ApplicationControlle
 
   def update
     customer = Customer.find(params[:customer_id])
-    customer_subscription = CustomerSubscription.find(params[:id])
-
+    customer_subscription = customer.customer_subscriptions.where(id: params[:id]).first
+    # customer_subscription = CustomerSubscription.find(params[:id])
+# require "pry"; binding.pry
     customer_subscription.update!(customer_subscription_params)
     render json: CustomerSubscriptionsSerializer.new(customer_subscription), status: :ok
   end
