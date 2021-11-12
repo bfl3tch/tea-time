@@ -12,7 +12,7 @@
 					"name": "Happy Path",
 					"item": [
 						{
-							"name": "Create a new customer subscription",
+							"name": "Query Params",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -113,6 +113,101 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"data\": {\n        \"id\": \"11\",\n        \"type\": \"customer_subscriptions\",\n        \"attributes\": {\n            \"tea_id\": 1,\n            \"customer_id\": 1,\n            \"subscription_id\": 1,\n            \"active\": true\n        }\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "JSON Body",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tea_id\": \"5\",\n    \"subscription_id\": \"2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										"1",
+										"customer_subscriptions"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create a new customer subscription body",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"tea_id\": \"5\",\n    \"subscription_id\": \"2\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												"1",
+												"customer_subscriptions"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"b3de8d57580fa538f1c209336bcc8c0d\""
+										},
+										{
+											"key": "Cache-Control",
+											"value": "max-age=0, private, must-revalidate"
+										},
+										{
+											"key": "X-Request-Id",
+											"value": "f8114520-c20e-48f3-bd97-02ed687404e9"
+										},
+										{
+											"key": "X-Runtime",
+											"value": "0.033508"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"id\": \"13\",\n        \"type\": \"customer_subscriptions\",\n        \"attributes\": {\n            \"tea_id\": 5,\n            \"customer_id\": 1,\n            \"subscription_id\": 2,\n            \"active\": true\n        }\n    }\n}"
 								}
 							]
 						}
@@ -529,8 +624,17 @@
 							"originalRequest": {
 								"method": "PATCH",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"active\": \"false\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions/1?active=false",
+									"raw": "http://localhost:3000/api/v1/customers/1/customer_subscriptions/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -543,12 +647,6 @@
 										"1",
 										"customer_subscriptions",
 										"1"
-									],
-									"query": [
-										{
-											"key": "active",
-											"value": "false"
-										}
 									]
 								}
 							},
@@ -570,11 +668,11 @@
 								},
 								{
 									"key": "X-Request-Id",
-									"value": "9f13540c-be5f-4707-8384-7a16702001b0"
+									"value": "eae98534-8334-4d2a-bef0-a05ce9ea755a"
 								},
 								{
 									"key": "X-Runtime",
-									"value": "1.764797"
+									"value": "0.053184"
 								},
 								{
 									"key": "Transfer-Encoding",
