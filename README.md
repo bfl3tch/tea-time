@@ -103,7 +103,7 @@ http://localhost:3000/api/v1
 ###### Happy Path
 
 Example Request:
-```
+```json
 POST /api/v1/customers/{:id}/customer_subscriptions
 
 With the following JSON body:
@@ -113,18 +113,14 @@ With the following JSON body:
     "subscription_id": "2",
 }
 ```
-`OR`
+`OR with the following URL for query parameters:`
 
-```
-
-with the following URL for query parameters:
-
+```json
 POST /api/v1/customers/{:id}/customer_subscriptions?tea_id=5&subscription_id=2
-
 ```
 
-Example Response
-```
+Example Response:
+```json
 201 (Created)
 
 {
@@ -143,7 +139,7 @@ Example Response
 
 ###### Sad Path
 Example Request:
-```
+```json
 POST /api/v1/customers/{:id}/customer_subscriptions
 
 With the following JSON body:
@@ -155,7 +151,7 @@ With the following JSON body:
 ```
 
 Example Response
-```
+```json
 404 (Not Found)
 
 {
@@ -174,7 +170,7 @@ GET /api/v1/customers/{:id}/customer_subscriptions
 ```
 Example Response:
 
-```
+```json
 201 (Created)
 
 {
@@ -254,13 +250,13 @@ Example Response:
 ```
 ###### Sad Path
 Example request:
-```
+```bash
 GET /api/v1/customers/{:bad_id}/customer_subscriptions
 
 ```
 Example Response:
 
-```
+```json
 {
     "errors": [
         "Couldn't find Customer with 'id'=10000"
@@ -271,7 +267,7 @@ Example Response:
 ##### Cancel a customer's tea subscription
 
 Example Request:
-```
+```json
 PATCH /api/v1/customers/{:id}/customer_subscriptions/1
 
 With the following JSON body:
@@ -283,7 +279,7 @@ With the following JSON body:
 
 Example Response:
 
-```
+```json
 {
     "data": {
         "id": "1",
